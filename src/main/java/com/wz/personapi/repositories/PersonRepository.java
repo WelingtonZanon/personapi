@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.wz.personapi.entities.Person;
 
-public interface PersonTepository extends JpaRepository<Person, Long>{
+public interface PersonRepository extends JpaRepository<Person, Long>{
 
 }
