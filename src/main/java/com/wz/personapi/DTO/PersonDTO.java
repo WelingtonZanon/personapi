@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.wz.personapi.entities.Person;
+import com.wz.personapi.services.validation.PersonInsertValid;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,21 +22,22 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@PersonInsertValid
 public class PersonDTO {
 
 	private Long id;
-	@NotEmpty
+	@NotEmpty (message = "Campo obrigatório")
 	@Size(min=2, max=100)
 	private String firstName;
-	@NotEmpty
+	@NotEmpty (message = "Campo obrigatório")
 	@Size(min=2, max=100)
 	private String lastName;
-	@NotEmpty
+	@NotEmpty (message = "Campo obrigatório")
 	@CPF
 	private String cpf;
 	private Instant birthDate;
 	@Valid
-	@NotEmpty
+	@NotEmpty (message = "Campo obrigatório")
 	private final List<PhoneDTO> phones = new ArrayList<>();
 	
 	public PersonDTO(Person entity) {

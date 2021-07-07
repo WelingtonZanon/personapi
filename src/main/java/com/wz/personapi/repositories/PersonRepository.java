@@ -6,4 +6,6 @@ import com.wz.personapi.entities.Person;
 
 public interface PersonRepository extends JpaRepository<Person, Long>{
 
+	Person findByCpf(String cpf);
+
 }

@@ -20,9 +20,9 @@ import lombok.NoArgsConstructor;
 public class PhoneDTO {
 
 	private Long id;
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING) 
 	private PhoneType type;
-	@NotEmpty
+	@NotEmpty (message = "Campo obrigatório")
 	@Size(min=13, max=14)
 	private String number;
 	

@@ -1,5 +1,9 @@
 package com.wz.personapi.controller;
 
+import java.net.URI;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.wz.personapi.DTO.PersonDTO;
 import com.wz.personapi.services.PersonService;
@@ -29,8 +34,12 @@ public class PersonController {
 	private PersonService service;
 	
 	@PostMapping
-	public PersonDTO insertPerson(@RequestBody PersonDTO dto) {
-		return service.insert(dto);
+	public ResponseEntity<PersonDTO> insertPerson(@Valid @RequestBody PersonDTO dto) {
+//		return service.insert(dto);
+		PersonDTO newDto = service.insert(dto);
+
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDto.getId()).toUri();
+		return ResponseEntity.created(uri).body(newDto);
 	}
 	
 	@GetMapping
