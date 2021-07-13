@@ -22,22 +22,25 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@PersonInsertValid
 public class PersonDTO {
 
 	private Long id;
+	
 	@NotEmpty (message = "Campo obrigatório")
 	@Size(min=2, max=100)
 	private String firstName;
+	
 	@NotEmpty (message = "Campo obrigatório")
 	@Size(min=2, max=100)
 	private String lastName;
+	
 	@NotEmpty (message = "Campo obrigatório")
 	@CPF
 	private String cpf;
+	
 	private Instant birthDate;
+	
 	@Valid
-	@NotEmpty (message = "Campo obrigatório")
 	private final List<PhoneDTO> phones = new ArrayList<>();
 	
 	public PersonDTO(Person entity) {

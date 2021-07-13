@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -34,7 +36,7 @@ public class PersonController {
 	private PersonService service;
 	
 	@PostMapping
-	public ResponseEntity<PersonDTO> insertPerson(@Valid @RequestBody PersonDTO dto) {
+	public ResponseEntity<PersonDTO> insertPerson(@RequestBody @Valid PersonDTO dto) {
 //		return service.insert(dto);
 		PersonDTO newDto = service.insert(dto);
 
@@ -50,12 +52,13 @@ public class PersonController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<PersonDTO> findById(@PathVariable Long id){
+	public ResponseEntity<PersonDTO> findById(@PathVariable Long id) {
 		PersonDTO dto = service.findByID(id);
 		return ResponseEntity.ok().body(dto);
 	}
 	
 	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteById(@PathVariable Long id) throws NotFoundException {
 		service.delete(id);
 	}
